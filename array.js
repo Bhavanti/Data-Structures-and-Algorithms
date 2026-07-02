@@ -1,3 +1,22 @@
+//FIND LARGEST 
+
+const largestEle=(nums)=>{
+    let max=nums[0];
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]>max){
+            max=nums[i];
+        }
+    }
+}
+console.log(largestEle([12,45,7,89,23]));
+
+
+
+
+
+
+
+
 const Profit=(priceArr)=>{
     let minPrice=priceArr[0]
     let maxProfit=0
