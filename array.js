@@ -116,3 +116,25 @@ const ProfitCheck=(priceArr)=>{
     return maxProfit;
 }
 console.log(ProfitCheck([7,6,4,3,1]))
+
+
+//5.LONGEST CONSECUTIVE 1S(running count, count the longest 1s appeared )
+//TIME COMPLEXITY O(n);
+//SPACE COMPLEXITY O(1);
+const longConsecutive =(nums)=>{
+    let currCount = 0;
+    let maxCount = 0;
+    for(let i=0; i<nums.length; i++){
+        if(nums[i]===1){
+            currCount++;
+        }else{
+            currCount=0;
+        }
+        if(currCount>maxCount){
+            maxCount = currCount;
+        }
+    }
+    return maxCount;
+}
+console.log(longConsecutive([1,1,1,1]));
+
