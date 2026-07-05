@@ -138,3 +138,44 @@ const longConsecutive =(nums)=>{
 }
 console.log(longConsecutive([1,1,1,1]));
 
+
+//6.MAXIMUM SUM OF SUBARRAY SIZE K(problem asks for a continous subarray)
+//BRUTE FORCE
+//TIME COMPLEXITY O(n^2)
+//SPACE COMPLEXITY O(1)
+const subArraysum=(nums,k)=>{
+    let sum=0;
+    let maxSum=0;
+    for(let i=0; i<=nums.length-k; i++){
+        for(let j=i; j<i+k; j++){
+            sum=sum+nums[j];
+        }
+        if(sum>maxSum){
+            maxSum=sum;
+        }
+        sum=0;
+    }
+    return maxSum;
+}
+ console.log(subArraysum([3,8,2,5,7,6],3));
+//OPTIMIZATION ( bottleneck of brute force computing the same sum mulitple times use sliding window pattern
+                 //for sliding window pattern problem asks about a continous array of fixed size and CONSECUTIVE SUBARRAY OVERLAY)
+                 //compute the first window sum then slide the window one by one , one element enters and one element leaves. so update the sum instead of recalculating it . 
+
+ const maxsubArraySum=(nums,k)=>{
+    let sum=0;
+    let maxSum=0;
+    for(let i=0; i<k; i++){
+        sum=sum+nums[i];
+    }
+    maxSum=sum;
+    for(let j=0; j<nums.length-k; j++){
+        sum=sum+(nums[j+k]-nums[j]);
+        if(sum>maxSum){
+        maxSum=sum;
+    }
+    }
+    
+    return maxSum;
+ }
+console.log(maxsubArraySum([3,8,2,5,7,6],3));
