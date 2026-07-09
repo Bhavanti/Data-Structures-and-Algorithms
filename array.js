@@ -332,8 +332,10 @@ const maxWater = (heights) => {
     return maxAmount;
 }
 console.log(maxWater([1,3,6,2,5,4,2,8,7]));
-
-//OPTIMAL SOLUTION()
+//The brute force checks every possible pair of heights even though many pairs can never produce a better answer.
+//OPTIMAL SOLUTION(The shorter wall limits the current area.
+//                Moving the taller wall only decreases the width while the limiting height cannot increase, 
+//               so it can never produce a larger area. Therefore, only the shorter wall is moved in search of a taller one.)
 //TIME COMPLEXITY O(n)
 //SPACE COMPLEXITY O(1)
 const maxWateramt = (height) => {
