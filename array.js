@@ -227,3 +227,50 @@ const subArray = (nums) => {
     return maxsum;
 }
 console.log(subArray([2, -5, 3, -2, 10]));
+
+
+//8.PRODUCT OF ARRAY EXCEPT SELF 
+//BRUTE FORCE
+//TIME COMLEXITY O(n^2)
+//SPACE COMPLEXITY O(n)
+const productArray = (nums) => {
+    let answerArray = new Array();
+    let product = 1;
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length; j++) {
+            if (j != i) {
+                product = product * nums[j];
+            }
+        }
+        answerArray.push(product);
+        product = 1;
+    }
+    return answerArray;
+}
+console.log(productArray([1, 2, 3, 4, 5]));
+
+//  OPTIMAL SOLUTION(The algorithm first computes the product of all elements to the left of every index, 
+//                   then computes the product of all elements to the right of every index,
+//                    and finally multiplies both products to get the answer for each index,instead of recalculating the product for every index)
+//TIME COMPLEXITY O(n)
+//SPACE COMPLEXITY O(n)
+const productansArray = (arr) => {
+    let left = new Array();
+    left[0] = 1;
+    let right = new Array();
+    right[arr.length - 1] = 1;
+    let answer = new Array();
+    for (let i = 1; i < arr.length; i++) {
+        left[i] = left[i - 1] * arr[i - 1];
+    }
+    console.log(left);
+    for (let j = arr.length - 2; j >= 0; j--) {
+        right[j] = right[j + 1] * arr[j + 1];
+    }
+    console.log(right);
+    for (let k = 0; k < arr.length; k++) {
+        answer[k] = left[k] * right[k];
+    }
+    return answer;
+}
+console.log(productansArray([1, 2, 3, 4, 5]));
