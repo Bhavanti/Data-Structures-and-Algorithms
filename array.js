@@ -274,3 +274,86 @@ const productansArray = (arr) => {
     return answer;
 }
 console.log(productansArray([1, 2, 3, 4, 5]));
+
+//9. MOVEE ZEROES TO LAST OF THE ARRAY
+//TIME COMPLEXITY O(n^2)
+//SPACE COMPLEXITY O(1)
+//BRUTE FORCE
+const divideArray = (nums) => {
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length - 1; j++) {
+            if (nums[j] === 0 && nums[j + 1] != 0) {
+                let zero = nums[j];
+                nums[j] = nums[j + 1];
+                nums[j + 1] = zero;
+
+            }
+        }
+    }
+    return nums;
+}
+console.log(divideArray([1, 0, 0, 0, 3, 0, 0]));
+
+//OPTIMAL SOLUTION(two pointer method always look for the invariant instead of getting confused due to the common elements)
+//TIME COMPLEXITY O(n)
+//SPACE COMPLEXITY O(1)
+const moveZeroes = (nums) => {
+    let int = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] != 0) {
+            let temp = nums[i];
+            nums[i] = nums[int];
+            nums[int] = temp;
+            int++;
+        }
+    }
+    return nums;
+}
+console.log(moveZeroes([0, 0, 0, 0, 0, 2, 5]));
+
+
+//10. CONTAINER WITH MOST H2O(find the maximum amount of water that can be contained between the heights given in the array.)
+//TIME COMPLEXITY O(n^2)
+//SPACE COMPLEXITY O(1)
+//BRUTE FORCE
+const maxWater = (heights) => {
+    let amount = 0;
+    let maxAmount = 0;
+    for (let i = 0; i < heights.length-1; i++) {
+        for (let j = i+1; j < heights.length; j++) {
+            let minimum = Math.min(heights[i], heights[j]);
+            let width = j - i;
+            amount = minimum * width;
+            if (amount > maxAmount) {
+                maxAmount = amount;
+            }
+        }
+    }
+    return maxAmount;
+}
+console.log(maxWater([1,3,6,2,5,4,2,8,7]));
+
+//OPTIMAL SOLUTION()
+//TIME COMPLEXITY O(n)
+//SPACE COMPLEXITY O(1)
+const maxWateramt = (height) => {
+    let j=height.length-1;
+    let i=0; 
+    let area = 0;
+    let maxArea = 0;
+    while (i<j){
+        let minimum = Math.min(height[i], height[j]);
+        let width = j-i
+        area = minimum * width;
+        if(area>maxArea){
+            maxArea=area
+        }
+       if(height[j]<height[i]){
+        j--;
+       }else{
+        i++;
+       }
+    }    
+    return maxArea;
+}
+console.log(maxWateramt([1,8,6,2,5,4,8,3,7]));
