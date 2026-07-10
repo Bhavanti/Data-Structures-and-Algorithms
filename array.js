@@ -319,8 +319,8 @@ console.log(moveZeroes([0, 0, 0, 0, 0, 2, 5]));
 const maxWater = (heights) => {
     let amount = 0;
     let maxAmount = 0;
-    for (let i = 0; i < heights.length-1; i++) {
-        for (let j = i+1; j < heights.length; j++) {
+    for (let i = 0; i < heights.length - 1; i++) {
+        for (let j = i + 1; j < heights.length; j++) {
             let minimum = Math.min(heights[i], heights[j]);
             let width = j - i;
             amount = minimum * width;
@@ -331,7 +331,7 @@ const maxWater = (heights) => {
     }
     return maxAmount;
 }
-console.log(maxWater([1,3,6,2,5,4,2,8,7]));
+console.log(maxWater([1, 3, 6, 2, 5, 4, 2, 8, 7]));
 //The brute force checks every possible pair of heights even though many pairs can never produce a better answer.
 //OPTIMAL SOLUTION(The shorter wall limits the current area.
 //                Moving the taller wall only decreases the width while the limiting height cannot increase, 
@@ -339,23 +339,59 @@ console.log(maxWater([1,3,6,2,5,4,2,8,7]));
 //TIME COMPLEXITY O(n)
 //SPACE COMPLEXITY O(1)
 const maxWateramt = (height) => {
-    let j=height.length-1;
-    let i=0; 
+    let j = height.length - 1;
+    let i = 0;
     let area = 0;
     let maxArea = 0;
-    while (i<j){
+    while (i < j) {
         let minimum = Math.min(height[i], height[j]);
-        let width = j-i
+        let width = j - i
         area = minimum * width;
-        if(area>maxArea){
-            maxArea=area
+        if (area > maxArea) {
+            maxArea = area
         }
-       if(height[j]<height[i]){
-        j--;
-       }else{
-        i++;
-       }
-    }    
+        if (height[j] < height[i]) {
+            j--;
+        } else {
+            i++;
+        }
+    }
     return maxArea;
 }
-console.log(maxWateramt([1,8,6,2,5,4,8,3,7]));
+console.log(maxWateramt([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+
+//11.BUY AND SELL STOCK 2(can do multiple transactions buy now sell tomorrow and return the maximum profit if no gain then dont consider)
+//SELF MADE OPTIMAL ALGORITHM(WHEN THE PRICES INCREASE CONTINUOUSLY, THE PROFIT IS THE DIFFERENCE BETWEEN THE LAST AND FIRST PRICE)
+const priceArray = (arr) => {
+    let profit = 0;
+    let diff = 0;
+    let i = 0;
+    let j = 0;
+    while (j < arr.length) {
+        if (arr[j+1] < arr[j] || j == arr.length - 1) {
+            diff = arr[j] - arr[i];
+            console.log(" difference = ", diff)
+            j++;
+            i=j;
+            profit = profit + diff;
+            console.log("profit=", profit);
+        } else {
+            j++;
+        }
+
+    }
+    return profit;
+}
+console.log(priceArray([1,3,2,4,3,5]));
+//IF THERE IS NO PROFIT THEN WHY EVEN CHECK FOR THE < CRITERIA?
+//simply calculate the profit without so many conditions!!
+const maxProfit = (nums) =>{
+    let profit = 0; 
+    for(let i=1; i<nums.length; i++){
+        if(nums[i]>nums[i-1]){
+            profit+=nums[i]-nums[i-1];
+        }
+    }
+    return profit;
+}
+console.log(maxProfit([7,1,5,3,8,6,1]));
