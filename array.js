@@ -368,11 +368,11 @@ const priceArray = (arr) => {
     let i = 0;
     let j = 0;
     while (j < arr.length) {
-        if (arr[j+1] < arr[j] || j == arr.length - 1) {
+        if (arr[j + 1] < arr[j] || j == arr.length - 1) {
             diff = arr[j] - arr[i];
             console.log(" difference = ", diff)
             j++;
-            i=j;
+            i = j;
             profit = profit + diff;
             console.log("profit=", profit);
         } else {
@@ -382,16 +382,48 @@ const priceArray = (arr) => {
     }
     return profit;
 }
-console.log(priceArray([1,3,2,4,3,5]));
-//IF THERE IS NO PROFIT THEN WHY EVEN CHECK FOR THE < CRITERIA?
+console.log(priceArray([1, 3, 2, 4, 3, 5]));
+//IF THERE IS NO PROFIT THEN WHY EVEN CHECK FOR THE < CRITERIA?//GREEDY ALGORITHM
 //simply calculate the profit without so many conditions!!
-const maxProfit = (nums) =>{
-    let profit = 0; 
-    for(let i=1; i<nums.length; i++){
-        if(nums[i]>nums[i-1]){
-            profit+=nums[i]-nums[i-1];
+const maxProfit = (nums) => {
+    let profit = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i + 1] > nums[i]) {
+            profit += nums[i + 1] - nums[i];
         }
     }
     return profit;
 }
-console.log(maxProfit([7,1,5,3,8,6,1]));
+console.log(maxProfit([7, 1, 5, 3, 8, 6, 1]));
+
+
+//12. LONGEST CONSECUTIVE
+//brute force(first sort the array then run 1 pass to count the length)
+//time complexity O(nlogn)+O(n)
+//space complexity O(1)
+
+//OPTIMAL SOLUTION(Searching for the next consecutive number repeatedly and recounting the same sequence from different starting points.
+//like we have 1,2,3,4 so count for 1 2 3 4 again 2 3 4 again 3 4 again 4 ... avoid counting from the numbers if the  number previous to the number exist.)
+//TIME COMPLEXITY O(n)
+//SPACE COMPLEXITY O(n)
+const longestConsecutive = (nums) => {
+    let maxlength = 0;
+    let numSet = new Set(nums);
+    for (let i = 0; i < nums.length; i++) {
+        let k = 1;
+        let count = 1
+        if (numSet.has(nums[i] - 1) === false) {
+            while (numSet.has(nums[i] + k)) {
+                count++;
+                k++;
+            }
+        }
+        if (count > maxlength) {
+            maxlength = count;
+        }
+    }
+
+    return maxlength;
+}
+
+console.log(longestConsecutive([100, 5, 101, 103, 1, 4, 3, 0, 2, 102, 99]));
